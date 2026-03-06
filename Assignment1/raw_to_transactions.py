@@ -11,11 +11,12 @@ def load_reduced_datasets():
     print("="*70)
     print("\nStep 1: Loading reduced datasets...")
     
-    orders = pd.read_csv('orders_reduced.csv')
-    order_products = pd.read_csv('order_products_reduced.csv')
-    products = pd.read_csv('products_reduced.csv')
-    aisles = pd.read_csv('aisles_reduced.csv')
-    departments = pd.read_csv('departments_reduced.csv')
+    reduced_data_folder = "data_reduced/"
+    orders = pd.read_csv(reduced_data_folder+'orders_reduced.csv')
+    order_products = pd.read_csv(reduced_data_folder+'order_products_reduced.csv')
+    products = pd.read_csv(reduced_data_folder+'products_reduced.csv')
+    aisles = pd.read_csv(reduced_data_folder+'aisles_reduced.csv')
+    departments = pd.read_csv(reduced_data_folder+'departments_reduced.csv')
     
     print(f"  Loaded {len(orders):,} orders")
     print(f"  Loaded {len(order_products):,} order-product records")
@@ -165,15 +166,15 @@ def save_transactions(transactions):
     print("Step 6: Saving transactions...")
     
     # Format 1: Pickle file (preserves list of lists for Python)
-    with open('transactions.pkl', 'wb') as f:
+    with open('./data_reduced/transactions.pkl', 'wb') as f:
         pickle.dump(transactions, f)
-    print("  Saved: transactions.pkl (Python pickle format)")
+    print("  Saved: ./data_reduced/transactions.pkl (Python pickle format)")
     
     # Format 2: CSV file (one row per transaction, comma-separated items)
-    with open('transactions.csv', 'w', encoding='utf-8') as f:
+    with open('./data_reduced/transactions.csv', 'w', encoding='utf-8') as f:
         for transaction in transactions:
             f.write(','.join(transaction) + '\n')
-    print("  Saved: transactions.csv (CSV format)")
+    print("  Saved: ./data_reduced/transactions.csv (CSV format)")
 
 
 def print_transaction_summary(transactions):

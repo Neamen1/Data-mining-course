@@ -2,3 +2,9 @@
 *.pkl
 *.pyc
 *.json
+report
+data/*
+data_reduced/*
+__pycache__
+.vscode
+.ipynb_checkpoints

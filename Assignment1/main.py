@@ -8,6 +8,8 @@ This script runs the full data mining pipeline:
 import sys
 import time
 from datetime import datetime
+import os
+from pathlib import Path
 
 # Import our modules
 import reducing
@@ -41,7 +43,7 @@ def main(reducing_params, transaction_params, association_params):
     print_step(1, 3, "DATA REDUCTION")
     print("Reducing dataset size using hybrid strategy:")
     print("  - Remove products purchased < 30 times")
-    print("  - Sample 10% of orders")
+    print(f"  - Sample {reducing_params.get('sample_rate', 0.5)*100:.0f}% of orders")
     print()
     
     start_time = time.time()
@@ -132,10 +134,13 @@ def main(reducing_params, transaction_params, association_params):
     print("  - top_rules_visualization.png - Top rules visualization")        
 
 if __name__ == "__main__":
+    # change working directory to the script's directory to ensure relative paths work correctly
+    os.chdir(Path(__file__).parent.resolve())
+
     try:
         reducing_params = {
             'min_product_purchases': 30,
-            'sample_rate': 0.2,     # Sample x% of orders
+            'sample_rate': 0.5,     # Sample x% of orders
             'random_seed': 42
         }
         transaction_params = {} # No parameters needed for current transaction implementation
@@ -143,7 +148,7 @@ if __name__ == "__main__":
             'min_support': 0.05,
             'min_confidence': 0.3,
             'min_lift': 1.2,
-            'do_parameter_experimentation': False  # Set to True to run parameter experimentation
+            'do_parameter_experimentation': True  # Set to True to run parameter experimentation
         }
         main(reducing_params, transaction_params, association_params)
     except KeyboardInterrupt:

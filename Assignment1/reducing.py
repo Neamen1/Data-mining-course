@@ -8,11 +8,12 @@ def load_datasets():
     """Load all original datasets"""
     print("Loading datasets...")
     
-    orders = pd.read_csv('orders.csv')
-    order_products = pd.read_csv('order_products.csv')
-    products = pd.read_csv('products.csv')
-    aisles = pd.read_csv('aisles.csv')
-    departments = pd.read_csv('departments.csv')
+    data_folder = "data/"
+    orders = pd.read_csv(data_folder+'orders.csv')
+    order_products = pd.read_csv(data_folder+'order_products.csv')
+    products = pd.read_csv(data_folder+'products.csv')
+    aisles = pd.read_csv(data_folder+'aisles.csv')
+    departments = pd.read_csv(data_folder+'departments.csv')
     
     print(f"Original dataset sizes:")
     print(f"  Orders: {len(orders):,} orders")
@@ -99,17 +100,18 @@ def save_reduced_datasets(orders_sampled, order_products_final, products_final,
     print("\n" + "="*70)
     print("STEP 3: Saving reduced datasets")
     
-    orders_sampled.to_csv('orders_reduced.csv', index=False)
-    order_products_final.to_csv('order_products_reduced.csv', index=False)
-    products_final.to_csv('products_reduced.csv', index=False)
-    aisles_final.to_csv('aisles_reduced.csv', index=False)
-    departments_final.to_csv('departments_reduced.csv', index=False)
+    reduced_data_folder = './data_reduced/'
+    orders_sampled.to_csv(reduced_data_folder+'orders_reduced.csv', index=False)
+    order_products_final.to_csv(reduced_data_folder+'order_products_reduced.csv', index=False)
+    products_final.to_csv(reduced_data_folder+'products_reduced.csv', index=False)
+    aisles_final.to_csv(reduced_data_folder+'aisles_reduced.csv', index=False)
+    departments_final.to_csv(reduced_data_folder+'departments_reduced.csv', index=False)
     
-    print("Saved: orders_reduced.csv")
-    print("Saved: order_products_reduced.csv") 
-    print("Saved: products_reduced.csv")
-    print("Saved: aisles_reduced.csv")
-    print("Saved: departments_reduced.csv")
+    print("Saved: data_reduced/orders_reduced.csv")
+    print("Saved: data_reduced/order_products_reduced.csv") 
+    print("Saved: data_reduced/products_reduced.csv")
+    print("Saved: data_reduced/aisles_reduced.csv")
+    print("Saved: data_reduced/departments_reduced.csv")
 
 
 def print_summary(orders, order_products, products, aisles, departments,

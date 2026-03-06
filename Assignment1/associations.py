@@ -20,7 +20,7 @@ sns.set_style('whitegrid')
 plt.rcParams['figure.figsize'] = (12, 6)
 
 
-def load_transactions(file_path='transactions.pkl'):
+def load_transactions(file_path='./data_reduced/transactions.pkl'):
     """Load transaction data from pickle file"""
     print("="*80)
     print("ASSOCIATION RULE MINING - APRIORI ALGORITHM")
@@ -96,8 +96,8 @@ def parameter_experimentation(transactions, support_values=[0.04, 0.08, 0.15], c
     
     # Convert to DataFrame
     results_df = pd.DataFrame(experiment_results)
-    results_df.to_csv('parameter_experiments.csv', index=False)
-    print(f"\n  Saved experiment results to parameter_experiments.csv")
+    results_df.to_csv('results/parameter_experiments.csv', index=False)
+    print(f"\n  Saved experiment results to results/parameter_experiments.csv")
     
     # Visualize results
     print("\n" + "="*80)
@@ -133,8 +133,8 @@ def parameter_experimentation(transactions, support_values=[0.04, 0.08, 0.15], c
     axes[1].grid(True, alpha=0.3)
     
     plt.tight_layout()
-    plt.savefig('parameter_effects.png', dpi=300, bbox_inches='tight')
-    print("  Saved visualization: parameter_effects.png")
+    plt.savefig('results/parameter_effects.png', dpi=300, bbox_inches='tight')
+    print("  Saved visualization: results/parameter_effects.png")
     
     # Plot 2: Effect on average lift
     pivot_avg_lift = results_df.pivot(
@@ -150,8 +150,8 @@ def parameter_experimentation(transactions, support_values=[0.04, 0.08, 0.15], c
     ax.set_ylabel('Minimum Support', fontsize=12)
     
     plt.tight_layout()
-    plt.savefig('parameter_effects_lift.png', dpi=300, bbox_inches='tight')
-    print("  Saved visualization: parameter_effects_lift.png")
+    plt.savefig('results/parameter_effects_lift.png', dpi=300, bbox_inches='tight')
+    print("  Saved visualization: results/parameter_effects_lift.png")
     
     # Analysis of parameter effects
     print("\n" + "-"*80)
@@ -172,8 +172,8 @@ def analyze_product_categories(rules_df):
     print(f"\nFound {len(product_rules)} product-only association rules")
     
     # Save product rules
-    product_rules[["antecedent_str", "consequent_str", "support", "confidence", "lift", "category"]].to_csv('rules_product_categories.csv', index=False)
-    print(f" Saved product category rules to rules_product_categories.csv")
+    product_rules[["antecedent_str", "consequent_str", "support", "confidence", "lift", "category"]].to_csv('results/rules_product_categories.csv', index=False)
+    print(f" Saved product category rules to results/rules_product_categories.csv")
     
     # Display top rules by different metrics
     print("\n" + "-"*80)
@@ -226,8 +226,8 @@ def analyze_purchase_timing(rules_df):
     print(f"\nFound {len(temporal_rules)} temporal-product association rules")
     
     # Save temporal rules
-    temporal_rules[["antecedent_str", "consequent_str", "support", "confidence", "lift", "category"]].to_csv('rules_purchase_timing.csv', index=False)
-    print(f" Saved temporal rules to rules_purchase_timing.csv")
+    temporal_rules[["antecedent_str", "consequent_str", "support", "confidence", "lift", "category"]].to_csv('results/rules_purchase_timing.csv', index=False)
+    print(f" Saved temporal rules to results/rules_purchase_timing.csv")
     
     # Display top temporal rules
     print("\n" + "-"*80)
@@ -310,8 +310,8 @@ def visualize_rules(product_rules, temporal_rules):
     plt.colorbar(scatter2, ax=axes[1], label='Lift')
     
     plt.tight_layout()
-    plt.savefig('top_rules_visualization.png', dpi=300, bbox_inches='tight')
-    print("  Saved visualization: top_rules_visualization.png")
+    plt.savefig('results/top_rules_visualization.png', dpi=300, bbox_inches='tight')
+    print("  Saved visualization: results/top_rules_visualization.png")
 
 
 def generate_and_analyze_rules(transactions, min_support=0.04, min_confidence=0.2, min_lift=1.2):
@@ -392,8 +392,8 @@ def generate_and_analyze_rules(transactions, min_support=0.04, min_confidence=0.
     print(rules_df['category'].value_counts())
     
     # Save all rules
-    rules_df[["antecedent_str", "consequent_str", "support", "confidence", "lift", "category"]].to_csv('association_rules_all.csv', index=False)
-    print(f"\n  Saved all rules to association_rules_all.csv")
+    rules_df[["antecedent_str", "consequent_str", "support", "confidence", "lift", "category"]].to_csv('results/association_rules_all.csv', index=False)
+    print(f"\n  Saved all rules to results/association_rules_all.csv")
     
     # Analyze product categories (OBJECTIVE 1)
     product_rules = analyze_product_categories(rules_df)
@@ -404,7 +404,7 @@ def generate_and_analyze_rules(transactions, min_support=0.04, min_confidence=0.
     # Create visualizations
     visualize_rules(product_rules, temporal_rules)
 
-def run(file_path='transactions.pkl', min_support=0.04, min_confidence=0.2, min_lift=1.2, do_parameter_experimentation=False):
+def run(file_path='./data_reduced/transactions.pkl', min_support=0.04, min_confidence=0.2, min_lift=1.2, do_parameter_experimentation=False):
     """Main function to run the complete association rule mining pipeline."""
     # Step 1: Load data
     transactions = load_transactions(file_path)
