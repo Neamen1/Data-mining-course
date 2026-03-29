@@ -1,4 +1,6 @@
 *.csv
+!Assignment2/results/*
+
 *.pkl
 *.pyc
 *.json
